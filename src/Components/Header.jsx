@@ -1,5 +1,6 @@
 import React from "react";
 import { IoIosLogOut } from "react-icons/io";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 
 function Header() {
   return (
@@ -13,7 +14,7 @@ function Header() {
         <div class="flex items-center gap-3">
           <div class="hidden md:flex items-center px-3 py-1.5 rounded-full bg-gray-100  text-xs font-semibold text-gray-600  border border-gray-200 ">
             <span class="material-symbols-outlined text-sm mr-1.5">
-              admin_panel_settings
+              <MdOutlineAdminPanelSettings />
             </span>
             Role: ADMIN
           </div>
