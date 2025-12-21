@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../Components/Header";
 import { FiPlus } from "react-icons/fi";
 import CreateTaskSection from "./TaskComponents/CreateTaskSection";
+import SearchAndFilter from "./TaskComponents/SearchAndFilter";
 
 function TasksPage() {
   return (
@@ -9,6 +10,7 @@ function TasksPage() {
       <Header />
       <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <CreateTaskSection />
+        <SearchAndFilter />
       </main>
     </div>
   );
