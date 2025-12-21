@@ -1,7 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { IoEyeOutline } from "react-icons/io5";
+import useHandleForm from "../../Hooks/useHandleForm";
 
 function Signup() {
+  const { formData, handleChangeFormData, showPassword, setShowPassword } =
+    useHandleForm();
+
+  function handleSignup(e) {
+    e.preventDefault();
+    console.log(
+      "formSubmmted",
+      formData.email,
+      formData.password,
+      formData?.name
+    );
+  }
+
   return (
     <div class="w-full max-w-[480px] bg-white rounded-xl shadow-sm border border-[#e5e7eb] overflow-hidden">
       <div class="px-8 pt-10 pb-2 flex flex-col items-center">
@@ -31,11 +46,7 @@ function Signup() {
       </div>
       {/* <!-- Form --> */}
       <div class="px-8 py-8">
-        <form
-          action="#"
-          class="flex flex-col gap-5"
-          onsubmit="event.preventDefault();"
-        >
+        <form action="#" class="flex flex-col gap-5" onSubmit={handleSignup}>
           {/* <!-- Name Field --> */}
           <div class="flex flex-col gap-1.5">
             <label class="text-[#111418] text-sm font-medium leading-normal">
@@ -46,19 +57,27 @@ function Signup() {
                 class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] focus:outline-0 focus:ring-2 focus:ring-primary/20 border bg-white focus:border-primary h-12 placeholder:text-[#617589] px-4 text-base font-normal leading-normal transition-all"
                 placeholder="John Doe"
                 type="text"
+                id="name"
+                name="name"
+                value={formData?.name}
+                onChange={handleChangeFormData}
               />
             </div>
           </div>
           {/* <!-- Email Field --> */}
           <div class="flex flex-col gap-1.5">
             <label class="text-[#111418] text-sm font-medium leading-normal">
-              Work Email
+              Email
             </label>
             <div class="relative flex w-full flex-1 items-center rounded-lg">
               <input
                 class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#dbe0e6]  bg-white focus:border-primary h-12 placeholder:text-[#617589] px-4 text-base font-normal leading-normal transition-all"
-                placeholder="name@company.com"
+                placeholder="name@abc.com"
                 type="email"
+                id="email"
+                name="email"
+                value={formData?.email}
+                onChange={handleChangeFormData}
               />
             </div>
           </div>
@@ -72,6 +91,10 @@ function Signup() {
                 class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#dbe0e6]  bg-white focus:border-primary h-12 placeholder:text-[#617589] pl-4 pr-12 text-base font-normal leading-normal transition-all"
                 placeholder="Create a password"
                 type="password"
+                id="password"
+                name="password"
+                value={formData?.password}
+                onChange={handleChangeFormData}
               />
               <button
                 class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-3 cursor-pointer text-[#617589] hover:text-[#111418] transition-colors focus:outline-none"
@@ -122,9 +145,12 @@ function Signup() {
           {/* <!-- Footer Link --> */}
           <p class="text-[#617589] text-sm text-center">
             Already have an account?
-            <a class="text-primary font-semibold hover:underline" href="#">
+            <Link
+              to="/login"
+              className="text-primary font-semibold hover:underline"
+            >
               Log in
-            </a>
+            </Link>
           </p>
         </form>
       </div>

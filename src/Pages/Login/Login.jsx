@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { CiMail } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
-
+import { FaRegEyeSlash } from "react-icons/fa6";
+import useHandleForm from "../../Hooks/useHandleForm";
 function Login() {
+  const { formData, handleChangeFormData, showPassword, setShowPassword } =
+    useHandleForm();
+
+  function handleLogin(e) {
+    e.preventDefault();
+    console.log("formSubmmted", formData.email, formData.password);
+  }
+
   return (
     <div>
-      <div class="w-full min-w-[448px] bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-6 sm:p-10 px-10">
+      <div className="w-full min-w-[448px] bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-6 sm:p-10 px-10">
         {/* <!-- Header / Logo Area --> */}
-        <div class="flex flex-col items-center mb-8">
-          <div class="flex items-center gap-3 text-[#111418] mb-6">
-            <div class="size-8 text-primary">
+        <div className="flex flex-col items-center mb-8">
+          <div className="flex items-center gap-3 text-[#111418] mb-6">
+            <div className="size-8 text-primary">
               <svg
-                class="w-full h-full"
+                className="w-full h-full"
                 fill="none"
                 viewbox="0 0 48 48"
                 xmlns="http://www.w3.org/2000/svg"
@@ -22,101 +32,113 @@ function Login() {
                 ></path>
               </svg>
             </div>
-            <h2 class="text-xl font-bold leading-tight tracking-tight">
+            <h2 className="text-xl font-bold leading-tight tracking-tight">
               Switch My Loan
             </h2>
           </div>
-          <h1 class="text-2xl sm:text-[32px] font-bold leading-tight text-center tracking-tight">
+          <h1 className="text-2xl sm:text-[32px] font-bold leading-tight text-center tracking-tight">
             Welcome back
           </h1>
-          <p class="text-[#617589] text-sm font-normal mt-2 text-center">
+          <p className="text-[#617589] text-sm font-normal mt-2 text-center">
             Log in to your account to manage your tasks.
           </p>
         </div>
         {/* <!-- Login Form --> */}
-        <form action="#" class="flex flex-col gap-5" method="POST">
+        <form
+          onSubmit={handleLogin}
+          className="flex flex-col gap-5"
+          method="POST"
+        >
           {/* <!-- Email Field --> */}
-          <div class="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <label
-              class="text-[#111418]  text-sm font-medium leading-normal"
+              className="text-[#111418]  text-sm font-medium leading-normal"
               for="email"
             >
               Email address
             </label>
-            <div class="relative">
+            <div className="relative">
               <input
-                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418]  focus:outline-0 focus:ring-2 focus:ring-primary/50 focus:border-primary border border-[#dbe0e6]  bg-white h-12 placeholder:text-[#617589]  px-4 text-base font-normal leading-normal transition-all duration-200"
+                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418]  focus:outline-0 focus:ring-2 focus:ring-primary/50 focus:border-primary border border-[#dbe0e6]  bg-white h-12 placeholder:text-[#617589]  px-4 text-base font-normal leading-normal transition-all duration-200"
                 id="email"
                 name="email"
                 placeholder="name@company.com"
-                required=""
+                required
                 type="email"
-                value=""
+                value={formData.email}
+                onChange={handleChangeFormData}
               />
-              <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-[#617589] text-[20px] pointer-events-none">
+              <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-[#617589] text-[20px] pointer-events-none">
                 <CiMail />
               </span>
             </div>
           </div>
           {/* <!-- Password Field --> */}
-          <div class="flex flex-col gap-2">
-            <div class="flex justify-between items-center">
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between items-center">
               <label
-                class="text-[#111418] text-sm font-medium leading-normal"
+                className="text-[#111418] text-sm font-medium leading-normal"
                 for="password"
               >
                 Password
               </label>
               <a
-                class="text-sm font-semibold text-primary hover:text-blue-600 transition-colors"
+                className="text-sm font-semibold text-primary hover:text-blue-600 transition-colors"
                 href="#"
               >
                 Forgot password?
               </a>
             </div>
-            <div class="relative group">
+            <div className="relative group">
               <input
-                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418]  focus:outline-0 focus:ring-2 focus:ring-primary/50 focus:border-primary border border-[#dbe0e6]  bg-white  h-12 placeholder:text-[#617589]  px-4 text-base font-normal leading-normal transition-all duration-200"
+                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418]  focus:outline-0 focus:ring-2 focus:ring-primary/50 focus:border-primary border border-[#dbe0e6]  bg-white  h-12 placeholder:text-[#617589]  px-4 text-base font-normal leading-normal transition-all duration-200"
                 id="password"
                 name="password"
                 placeholder="••••••••"
-                required=""
-                type="password"
-                value=""
+                required
+                type={showPassword ? "text" : "password"}
+                value={formData.password}
+                onChange={handleChangeFormData}
               />
               <button
-                class="absolute right-4 top-1/2 -translate-y-1/2 text-[#617589] hover:text-[#111418] transition-colors cursor-pointer flex items-center justify-center"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#617589] hover:text-[#111418] transition-colors cursor-pointer flex items-center justify-center"
                 type="button"
               >
-                <span class="material-symbols-outlined text-[20px]">
-                  <IoEyeOutline />
+                <span className="material-symbols-outlined text-[20px]">
+                  {showPassword ? (
+                    <FaRegEyeSlash onClick={() => setShowPassword(false)} />
+                  ) : (
+                    <IoEyeOutline onClick={() => setShowPassword(true)} />
+                  )}
                 </span>
               </button>
             </div>
             {/* <!-- Error Text Example (Hidden by default, showing static example as requested) --> */}
-            <p class="text-red-500 text-sm font-normal leading-normal mt-1 flex items-center gap-1">
-              <span class="material-symbols-outlined text-[16px]">error</span>
+            <p className="text-red-500 text-sm font-normal leading-normal mt-1 flex items-center gap-1">
+              <span className="material-symbols-outlined text-[16px]">
+                error
+              </span>
               Invalid email address or password.
             </p>
           </div>
           {/* <!-- Action Button --> */}
           <button
-            class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary hover:bg-blue-600 text-white text-base font-bold leading-normal tracking-[0.015em] transition-colors shadow-sm mt-2"
+            className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary hover:bg-blue-600 text-white text-base font-bold leading-normal tracking-[0.015em] transition-colors shadow-sm mt-2"
             type="submit"
           >
-            <span class="truncate">Sign In</span>
+            <span className="truncate">Sign In</span>
           </button>
         </form>
         {/* <!-- Footer --> */}
-        <div class="mt-8 pt-6 border-t border-[#f0f2f4] text-center">
-          <p class="text-[#617589]  text-sm font-normal">
+        <div className="mt-8 pt-6 border-t border-[#f0f2f4] text-center">
+          <p className="text-[#617589]  text-sm font-normal">
             Don't have an account?
-            <a
-              class="font-bold text-primary hover:text-blue-600 transition-colors ml-1"
-              href="#"
+            <Link
+              to="/signup"
+              className="font-bold text-primary hover:text-blue-600 transition-colors ml-1"
             >
               Create account
-            </a>
+            </Link>
           </p>
         </div>
       </div>
