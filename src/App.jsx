@@ -4,16 +4,30 @@ import Signup from "./Pages/Signup/Signup";
 import TasksPage from "./Pages/Tasks/TasksPage";
 import CreateTaskForm from "./Pages/Tasks/TaskComponents/CreateTaskForm";
 import AppRoutes from "./Routes/Approutes";
-function App() {
-  const [count, setCount] = useState(0);
+import { AuthProvider } from "./context/AuthContext.jsx";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+import { BrowserRouter } from "react-router-dom";
+const queryClient = new QueryClient();
 
+function App() {
   return (
-    <div className="bg-background-light  w-full min-h-screen flex items-center justify-center">
-      {/* <Login /> */}
-      {/* <TasksPage /> */}
-      {/* <CreateTaskForm /> */}
-      <AppRoutes />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <BrowserRouter>
+          <div className="bg-background-light  w-full min-h-screen flex items-center justify-center">
+            {/* <Login /> */}
+            {/* <TasksPage /> */}
+            {/* <CreateTaskForm /> */}
+
+            <AppRoutes />
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
 

@@ -1,15 +1,29 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { CiMail } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import useHandleForm from "../../Hooks/useHandleForm";
+import { useQuery } from "@tanstack/react-query";
+import { useLogin } from "../../Hooks/useLogin";
+import { useAuth } from "../../context/AuthContext";
 function Login() {
+  const { mutate: login, isPending, error } = useLogin();
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+
   const { formData, handleChangeFormData, showPassword, setShowPassword } =
     useHandleForm();
 
+  useEffect(() => {
+    if (auth?.isAuthenticated) {
+      navigate("/tasks", { replace: true });
+    }
+  }, [auth.isAuthenticated, navigate]);
+
   function handleLogin(e) {
     e.preventDefault();
+    login({ email: formData.email, password: formData.password });
     console.log("formSubmmted", formData.email, formData.password);
   }
 

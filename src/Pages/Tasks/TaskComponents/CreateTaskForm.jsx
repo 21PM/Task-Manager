@@ -4,25 +4,9 @@ import { MdOutlineExpandMore } from "react-icons/md";
 import { MdOutlineExpandLess } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
 import { FaRegCalendar } from "react-icons/fa6";
-
+import useHandleTaskForm from "../../../Hooks/useHandleTaskForm";
 function CreateTaskForm() {
-  const [taskForm, setTaskForm] = useState({
-    title: "",
-    description: "",
-    status: "To Do",
-    priority: "Low",
-    assignee: "",
-    dueDate: "",
-  });
-
-  function handleTaskFormChange(event) {
-    const { name, value } = event.target;
-
-    setTaskForm((prev) => {
-      return { ...prev, [name]: value };
-    });
-  }
-
+  const { taskForm, handleTaskFormChange } = useHandleTaskForm();
   function handleSaveTask() {
     console.log("taskForm", taskForm);
   }
