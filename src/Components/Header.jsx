@@ -3,6 +3,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { useLogout } from "../Hooks/useLogout";
 import { useAuth } from "../context/AuthContext";
+import { BiSolidUserDetail } from "react-icons/bi";
 
 function Header() {
   const { mutate: logout, isPending } = useLogout();
@@ -24,6 +25,14 @@ function Header() {
               Role: ADMIN
             </div>
           )}
+          {
+            <div class="hidden md:flex items-center px-3 py-1.5 rounded-full bg-gray-100  text-xs font-semibold text-gray-600  border border-gray-200 ">
+              <span class="material-symbols-outlined text-sm mr-1.5">
+                <BiSolidUserDetail />
+              </span>
+              Name : {auth?.user?.name || "N/A"}
+            </div>
+          }
 
           <button
             disabled={isPending}

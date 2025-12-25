@@ -40,8 +40,15 @@ function TasksTable() {
     navigate(`/taskDetails/${id}`);
   };
   useEffect(() => {
-    console.log("data", data);
-  }, [data]);
+    console.log("totla", data?.pagination?.total);
+    console.log("page", page);
+    console.log("limit", limit);
+
+    console.log(
+      "page === data?.pagination?.total / limit",
+      page === data?.pagination?.total / limit
+    );
+  }, [page, data]);
   return (
     <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden flex flex-col">
       <div class="overflow-x-auto">
@@ -185,19 +192,38 @@ function TasksTable() {
       <div class="border-t border-[#e5e7eb] bg-gray-50/50 px-6 py-4 flex items-center justify-between">
         <p class="text-sm text-gray-500">
           Showing
-          <span class="font-medium text-[#111418]">1</span> to
-          <span class="font-medium text-[#111418]">5</span> of
-          <span class="font-medium text-[#111418]">24</span>
+          <span class="font-medium text-[#111418]">
+            {" "}
+            {limit * (page - 1) + 1}
+          </span>{" "}
+          to
+          <span class="font-medium text-[#111418]">
+            {" "}
+            {page * limit > data?.pagination?.total
+              ? data?.pagination?.total
+              : page * limit}
+          </span>{" "}
+          of
+          <span class="font-medium text-[#111418]">
+            {" "}
+            {data?.pagination?.total || 0}
+          </span>
+          <span class="font-medium text-[#111418]"> </span>
           results
         </p>
         <div class="flex gap-2">
           <button
-            class="inline-flex items-center px-3 py-1.5 border border-[#e5e7eb] rounded-lg text-sm font-medium text-gray-500  bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            disabled=""
+            class={`inline-flex items-center px-3 py-1.5 border border-[#e5e7eb] rounded-lg text-sm font-medium disabled:text-gray-500 text-black bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors`}
+            disabled={page === 1}
+            onClick={() => setPage((prev) => prev - 1)}
           >
             Previous
           </button>
-          <button class="inline-flex items-center px-3 py-1.5 border border-[#e5e7eb]rounded-lg text-sm font-medium text-[#111418 bg-white hover:bg-gray-50 transition-colors">
+          <button
+            class="inline-flex items-center px-3 py-1.5 border border-[#e5e7eb]rounded-lg text-sm font-medium text-[#111418 bg-white hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:text-gray-500"
+            onClick={() => setPage((prev) => prev + 1)}
+            disabled={data?.pagination?.total <= page * limit}
+          >
             Next
           </button>
         </div>
