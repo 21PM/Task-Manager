@@ -4,44 +4,28 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import useMyTasks from "../../../Hooks/useGetMyTasks";
 import { IoFlagOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-
+import { useDeleteTask } from "../../../Hooks/useDeleteTask";
+import Dialog from "../../../Components/Dialog";
+import DeleteTaskDialog from "./DeleteTaskDialog";
+import { FiAlertTriangle } from "react-icons/fi";
+import {
+  getColorByPriority,
+  getColorByStatus,
+  formatToDateOnly,
+} from "../../../Utils/helpers";
 function TasksTable() {
   const navigate = useNavigate();
+  const { mutate: deleteTask, isPending } = useDeleteTask();
+  const [isOpen, setIsOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const { data, isLoading, isError } = useMyTasks(page, limit);
+  const [deleteTaskDetails, setDeleteTaskDetails] = useState({
+    title: "",
+    _id: "",
+    assignee: "",
+  });
 
-  function getColorByStatus(status) {
-    let StatusColours = {
-      TODO: "bg-yellow-100 text-yellow-800 border border-yellow-200",
-      "IN PROGRESS": "bg-blue-100 text-blue-800 border border-blue-200",
-      DONE: "bg-green-100 text-green-800 border border-green-200",
-    };
-    return (
-      StatusColours[status] ||
-      "bg-gray-100 text-gray-800 border border-gray-200"
-    );
-  }
-  function getColorByPriority(priority) {
-    let PriorityColours = {
-      HIGH: "text-red-600 ",
-      MEDIUM: "text-yellow-600 ",
-      LOW: "text-green-600 ",
-    };
-    return (
-      PriorityColours[priority] ||
-      "bg-gray-100 text-gray-800 border border-gray-200"
-    );
-  }
-  function formatToDateOnly(isoDate) {
-    const date = new Date(isoDate);
-
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${day}-${month}-${year}`;
-  }
   const handleRowClick = (id) => {
     navigate(`/taskDetails/${id}`);
   };
@@ -149,6 +133,17 @@ function TasksTable() {
                         <button
                           class="p-1.5 rounded-md hover:bg-red-50 text-red-600 transition-colors"
                           title="Delete"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsOpen(true);
+                            setDeleteTaskDetails({
+                              title,
+                              _id,
+                              assignee,
+                              status,
+                              priority,
+                            });
+                          }}
                         >
                           <span class="material-symbols-outlined text-xl">
                             <RiDeleteBinLine />
@@ -184,6 +179,20 @@ function TasksTable() {
           </button>
         </div>
       </div>
+      <Dialog
+        title={
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-red-100 rounded-full">
+              <FiAlertTriangle className="w-6 h-6 text-red-600" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900">Delete Task?</h3>
+          </div>
+        }
+        isOpen={isOpen}
+        children={<DeleteTaskDialog />}
+        onClose={() => setIsOpen(false)}
+        extraData={deleteTaskDetails}
+      />
     </div>
   );
 }

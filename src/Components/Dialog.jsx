@@ -1,7 +1,7 @@
 import React from "react";
 import { IoMdClose } from "react-icons/io";
 
-const Dialog = ({ isOpen, onClose, title, children }) => {
+const Dialog = ({ isOpen, onClose, title, children, classes, extraData }) => {
   if (!isOpen) return null;
 
   return (
@@ -10,12 +10,12 @@ const Dialog = ({ isOpen, onClose, title, children }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white p-4  rounded-lg"
+        className={`bg-white p-4  rounded-lg w-full max-w-md mx-4 overflow-hidden md:max-w-lg ${classes}`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between z-50">
           <h1 className="text-[#111418] text-xl font-bold leading-tight">
-            Create New Task
+            {title}
           </h1>
           <button
             className="text-gray-400 hover:text-gray-600 transition-colors "
@@ -28,7 +28,7 @@ const Dialog = ({ isOpen, onClose, title, children }) => {
         </div>
         <div>
           {React.isValidElement(children)
-            ? React.cloneElement(children, { onClose })
+            ? React.cloneElement(children, { onClose, extraData })
             : children}
         </div>
       </div>

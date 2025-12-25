@@ -38,3 +38,8 @@ export const getTaskById = async ({ id }) => {
   const { data } = await api.get(`/task/get/${id}`);
   return data;
 };
+
+export const deleteTaskApi = async ({ id }) => {
+  const { data } = await api.delete(`/task/delete/${id}`);
+  return data;
+};
