@@ -5,10 +5,19 @@ import { MdOutlineExpandLess } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
 import { FaRegCalendar } from "react-icons/fa6";
 import useHandleTaskForm from "../../../Hooks/useHandleTaskForm";
-function CreateTaskForm() {
+import useCreateTask from "../../../Hooks/useCreateTask";
+function CreateTaskForm({ onClose }) {
   const { taskForm, handleTaskFormChange } = useHandleTaskForm();
+  const { mutate: createTask, isPending } = useCreateTask(onClose);
   function handleSaveTask() {
-    console.log("taskForm", taskForm);
+    const payload = {
+      title: taskForm.title,
+      description: taskForm.description,
+      status: taskForm.status,
+      priority: taskForm.priority,
+      dueDate: taskForm.dueDate,
+    };
+    createTask(payload);
   }
 
   return (
@@ -69,9 +78,9 @@ function CreateTaskForm() {
                 onChange={handleTaskFormChange}
                 value={taskForm.status}
               >
-                <option value="todo">To Do</option>
-                <option value="inprogress">In Progress</option>
-                <option value="done">Done</option>
+                <option value="TODO">TODO</option>
+                <option value="IN PROGRESS">IN PROGRESS</option>
+                <option value="DONE">DONE</option>
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
                 <span className="material-symbols-outlined text-xl">
@@ -90,15 +99,15 @@ function CreateTaskForm() {
             </label>
             <div className="relative">
               <select
-                className="appearance-none w-full rounded-lg border border-[#dbe0e6] bg-white text-[#111418] h-12 px-4 pr-10 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
+                className="appearance-none w-full rounded-lg border border-[#dbe0e6] bg-white text-[#111418] h-12 px-4 pr-10 focus:outline-none test-xs focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
                 id="task-priority"
                 name="priority"
                 onChange={handleTaskFormChange}
                 value={taskForm.priority}
               >
-                <option value="low">Low</option>
-                <option value="high">Medium</option>
-                <option value="critical">High</option>
+                <option value="LOW">LOW</option>
+                <option value="MEDIUM">MEDIUM</option>
+                <option value="HIGH">HIGH</option>
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
                 <span className="material-symbols-outlined text-xl">
@@ -164,7 +173,9 @@ function CreateTaskForm() {
           className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 flex-row-reverse gap-2 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-blue-600 transition-colors shadow-sm"
           onClick={handleSaveTask}
         >
-          <span className="truncate">Save Task</span>
+          <span className="truncate">
+            {isPending ? "Saving ..." : "Save Task"}
+          </span>
         </button>
       </div>
     </div>

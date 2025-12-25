@@ -23,3 +23,8 @@ export const signupApi = async (payload) => {
   const { data } = await api.post("/auth/signup", payload);
   return data;
 };
+
+export const createTaskApi = async (payload) => {
+  const { data } = await api.post("/task/create", payload);
+  return data;
+};

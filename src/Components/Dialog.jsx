@@ -1,8 +1,8 @@
+import React from "react";
 import { IoMdClose } from "react-icons/io";
 
 const Dialog = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
-  console.log("dailloged callleds");
 
   return (
     <div
@@ -26,7 +26,11 @@ const Dialog = ({ isOpen, onClose, title, children }) => {
             </span>
           </button>
         </div>
-        <div>{children}</div>
+        <div>
+          {React.isValidElement(children)
+            ? React.cloneElement(children, { onClose })
+            : children}
+        </div>
       </div>
     </div>
   );

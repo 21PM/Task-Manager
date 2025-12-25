@@ -5,7 +5,6 @@ import { signupApi } from "../Api/api.js";
 import { toast } from "react-toastify";
 
 export const useSignup = () => {
-  const queryClient = useQueryClient();
   const { setAuth } = useAuth();
   const navigate = useNavigate();
 

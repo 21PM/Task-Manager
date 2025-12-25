@@ -4,8 +4,8 @@ function useHandleTaskForm() {
   const [taskForm, setTaskForm] = useState({
     title: "",
     description: "",
-    status: "To Do",
-    priority: "Low",
+    status: "TODO",
+    priority: "LOW",
     assignee: "",
     dueDate: "",
   });
