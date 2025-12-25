@@ -20,7 +20,7 @@ function CreateTaskSection() {
         <span class="material-symbols-outlined text-xl mr-2">
           <FiPlus />
         </span>
-        Create Taskasd
+        Create Task
       </button>
       <Dialog
         title={" Manage and track loan application tasks."}

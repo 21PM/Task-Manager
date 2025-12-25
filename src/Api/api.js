@@ -28,3 +28,13 @@ export const createTaskApi = async (payload) => {
   const { data } = await api.post("/task/create", payload);
   return data;
 };
+
+export const getMyTasksApi = async ({ page, limit }) => {
+  const { data } = await api.get(`/task/get?page=${page}&limit=${limit}`);
+  return data;
+};
+
+export const getTaskById = async ({ id }) => {
+  const { data } = await api.get(`/task/get/${id}`);
+  return data;
+};

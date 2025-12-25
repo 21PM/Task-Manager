@@ -7,6 +7,7 @@ import Admin from "../Pages/Admin/Admin";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
 import { useCheckAuth } from "../Hooks/useCheckAuth";
+import TaskDetails from "../Pages/Tasks/TaskComponents/TaskDetails";
 const AppRoutes = () => {
   useCheckAuth();
   const { auth } = useAuth();
@@ -37,6 +38,7 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute />}>
         <Route path="/tasks" element={<TasksPage />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/taskDetails/:id" element={<TaskDetails />} />
       </Route>
     </Routes>
   );

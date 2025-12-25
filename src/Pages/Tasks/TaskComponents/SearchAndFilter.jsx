@@ -38,7 +38,7 @@ function SearchAndFilter() {
               <option value="completed">Completed</option>
             </select>
             <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xl">
-              <MdOutlineExpandMore />
+              {/* <MdOutlineExpandMore /> */}
             </span>
           </div>
         </div>
@@ -54,8 +54,9 @@ function SearchAndFilter() {
               <option value="medium">Medium</option>
               <option value="low">Low</option>
             </select>
+
             <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xl">
-              <MdOutlineExpandMore />
+              {/* <MdOutlineExpandMore /> */}
             </span>
           </div>
         </div>
@@ -71,18 +72,9 @@ function SearchAndFilter() {
               <option value="title_asc">Title (A-Z)</option>
             </select>
             <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xl">
-              <BsSortUp />
+              {/* <BsSortUp /> */}
             </span>
           </div>
-        </div>
-        {/* <!-- Filter Button (Mobile/Tablet optimization, or just visual balance) --> */}
-        <div class="md:col-span-2 flex justify-end">
-          <button class="flex items-center justify-center w-full md:w-auto h-10 px-4 rounded-lg bg-white border border-[#e5e7eb] text-gray-700 hover:bg-gray-50 text-sm font-medium transition-colors">
-            <span class="material-symbols-outlined text-lg mr-2">
-              <LuFilter />
-            </span>
-            More Filters
-          </button>
         </div>
       </div>
     </div>

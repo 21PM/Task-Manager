@@ -16,6 +16,7 @@ function CreateTaskForm({ onClose }) {
       status: taskForm.status,
       priority: taskForm.priority,
       dueDate: taskForm.dueDate,
+      assignee: taskForm.assignee,
     };
     createTask(payload);
   }

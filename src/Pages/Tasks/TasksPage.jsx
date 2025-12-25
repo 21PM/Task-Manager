@@ -4,7 +4,7 @@ import { FiPlus } from "react-icons/fi";
 import CreateTaskSection from "./TaskComponents/CreateTaskSection";
 import SearchAndFilter from "./TaskComponents/SearchAndFilter";
 import TasksTable from "./TaskComponents/TasksTable";
-import CreateTaskForm from "./TaskComponents/CreateTaskForm";
+import TaskDetails from "./TaskComponents/TaskDetails";
 
 function TasksPage() {
   return (
