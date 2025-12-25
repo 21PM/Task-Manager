@@ -6,19 +6,30 @@ import { FaUser } from "react-icons/fa6";
 import { FaRegCalendar } from "react-icons/fa6";
 import useHandleTaskForm from "../../../Hooks/useHandleTaskForm";
 import useCreateTask from "../../../Hooks/useCreateTask";
-function CreateTaskForm({ onClose }) {
-  const { taskForm, handleTaskFormChange } = useHandleTaskForm();
-  const { mutate: createTask, isPending } = useCreateTask(onClose);
+import useEditTask from "../../../Hooks/useEditTask";
+
+function CreateTaskForm({ onClose, formDetails }) {
+  const { taskForm, handleTaskFormChange } = useHandleTaskForm(formDetails);
+  const { mutate: createTask, isPending: isCreatePending } =
+    useCreateTask(onClose);
+  const { mutate: editTask, isPending } = useEditTask(onClose);
+  const payload = {
+    title: taskForm.title,
+    description: taskForm.description,
+    status: taskForm.status,
+    priority: taskForm.priority,
+    dueDate: taskForm.dueDate,
+    assignee: taskForm.assignee,
+  };
   function handleSaveTask() {
-    const payload = {
-      title: taskForm.title,
-      description: taskForm.description,
-      status: taskForm.status,
-      priority: taskForm.priority,
-      dueDate: taskForm.dueDate,
-      assignee: taskForm.assignee,
-    };
-    createTask(payload);
+    if (formDetails) {
+      // if FormDetails exist, we are editing an existing task
+      editTask({ id: formDetails._id, payload });
+    } else {
+      // else, we are creating a new task
+      console.log("create API");
+      createTask(payload);
+    }
   }
 
   return (
@@ -167,7 +178,10 @@ function CreateTaskForm({ onClose }) {
       </div>
       {/* <!-- Modal Footer (Action Bar) --> */}
       <div className="flex items-center justify-end gap-3 px-6 py-4 bg-[#f9fafb] border-t border-[#f0f2f4] ">
-        <button className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 flex-row-reverse gap-2 text-[#111418] text-sm font-bold leading-normal tracking-[0.015em] bg-transparent hover:bg-gray-100 border border-transparent transition-colors">
+        <button
+          className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 flex-row-reverse gap-2 text-[#111418] text-sm font-bold leading-normal tracking-[0.015em] bg-transparent hover:bg-gray-100 border border-transparent transition-colors"
+          onClick={onClose}
+        >
           <span className="truncate">Cancel</span>
         </button>
         <button

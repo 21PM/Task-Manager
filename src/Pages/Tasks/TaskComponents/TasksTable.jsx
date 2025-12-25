@@ -13,16 +13,26 @@ import {
   getColorByStatus,
   formatToDateOnly,
 } from "../../../Utils/helpers";
+import CreateTaskForm from "./CreateTaskForm";
 function TasksTable() {
   const navigate = useNavigate();
   const { mutate: deleteTask, isPending } = useDeleteTask();
-  const [isOpen, setIsOpen] = useState(false);
+  const [openDeleteTaskDialog, setOpenDeleteTaskDialog] = useState(false);
+  const [openEditTaskDialog, setOpenEditTaskDialog] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const { data, isLoading, isError } = useMyTasks(page, limit);
   const [deleteTaskDetails, setDeleteTaskDetails] = useState({
     title: "",
     _id: "",
+    assignee: "",
+  });
+  const [editTaskDetails, setEditTaskDetails] = useState({
+    title: "",
+    description: "",
+    status: "",
+    priority: "",
+    dueDate: "",
     assignee: "",
   });
 
@@ -125,6 +135,19 @@ function TasksTable() {
                         <button
                           class="p-1.5 rounded-md hover:bg-gray-100 text-primary transition-colors"
                           title="Edit"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setEditTaskDetails({
+                              title,
+                              description,
+                              status,
+                              priority,
+                              dueDate,
+                              assignee,
+                              _id,
+                            });
+                            setOpenEditTaskDialog(true);
+                          }}
                         >
                           <span class="material-symbols-outlined text-xl">
                             <FaEdit />
@@ -135,7 +158,6 @@ function TasksTable() {
                           title="Delete"
                           onClick={(e) => {
                             e.stopPropagation();
-                            setIsOpen(true);
                             setDeleteTaskDetails({
                               title,
                               _id,
@@ -143,6 +165,7 @@ function TasksTable() {
                               status,
                               priority,
                             });
+                            setOpenDeleteTaskDialog(true);
                           }}
                         >
                           <span class="material-symbols-outlined text-xl">
@@ -180,6 +203,13 @@ function TasksTable() {
         </div>
       </div>
       <Dialog
+        title={"Edit Task"}
+        isOpen={openEditTaskDialog}
+        onClose={() => setOpenEditTaskDialog(false)}
+        children={<CreateTaskForm formDetails={editTaskDetails} />}
+        extraData={editTaskDetails}
+      />
+      <Dialog
         title={
           <div className="flex items-center gap-4">
             <div className="p-3 bg-red-100 rounded-full">
@@ -188,9 +218,9 @@ function TasksTable() {
             <h3 className="text-xl font-bold text-gray-900">Delete Task?</h3>
           </div>
         }
-        isOpen={isOpen}
+        isOpen={openDeleteTaskDialog}
         children={<DeleteTaskDialog />}
-        onClose={() => setIsOpen(false)}
+        onClose={() => setOpenDeleteTaskDialog(false)}
         extraData={deleteTaskDetails}
       />
     </div>

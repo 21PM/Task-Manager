@@ -29,6 +29,11 @@ export const createTaskApi = async (payload) => {
   return data;
 };
 
+export const editTaskApi = async ({ id, payload }) => {
+  const { data } = await api.post(`/task/edit/${id}`, payload);
+  return data;
+};
+
 export const getMyTasksApi = async ({ page, limit }) => {
   const { data } = await api.get(`/task/get?page=${page}&limit=${limit}`);
   return data;
