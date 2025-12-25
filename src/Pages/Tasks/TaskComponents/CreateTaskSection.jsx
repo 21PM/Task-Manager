@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
-
+import Dialog from "../../../Components/Dialog.jsx";
+import CreateTaskForm from "./CreateTaskForm.jsx";
 function CreateTaskSection() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
       <div>
@@ -10,12 +13,21 @@ function CreateTaskSection() {
           Manage and track loan application tasks.
         </p>
       </div>
-      <button class="flex items-center justify-center h-10 px-4 bg-primary hover:bg-primary/90 text-white text-sm font-bold rounded-lg shadow-sm transition-colors min-w-[140px]">
+      <button
+        class="flex items-center justify-center h-10 px-4 bg-primary hover:bg-primary/90 text-white text-sm font-bold rounded-lg shadow-sm transition-colors min-w-[140px]"
+        onClick={() => setIsOpen(true)}
+      >
         <span class="material-symbols-outlined text-xl mr-2">
           <FiPlus />
         </span>
-        Create Task
+        Create Taskasd
       </button>
+      <Dialog
+        title={" Manage and track loan application tasks."}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        children={<CreateTaskForm />}
+      />
     </div>
   );
 }

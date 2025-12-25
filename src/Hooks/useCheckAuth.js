@@ -14,10 +14,8 @@ export const useCheckAuth = () => {
 
   useEffect(() => {
     if (isSuccess && data) {
-      console.log("onSuccess replacement", data);
-
       setAuth({
-        user: data.user,
+        user: data.userDetails,
         isAuthenticated: true,
         isLoading: false,
       });

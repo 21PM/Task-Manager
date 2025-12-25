@@ -7,14 +7,14 @@ import { LuFilter } from "react-icons/lu";
 
 function SearchAndFilter() {
   return (
-    <div class="bg-white p-4 rounded-xl border border-[#e5e7eb] shadow-sm mb-6">
+    <div class="bg-white p-4 rounded-xl border border-[#e5e7eb] shadow-sm mb-6 z-10">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
         {/* <!-- Search Input --> */}
         <div class="md:col-span-4">
           <label class="block text-xs font-medium text-gray-700 mb-1.5">
             Search
           </label>
-          <div class="relative">
+          <div>
             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl">
               <MdSearch />
             </span>
@@ -30,7 +30,7 @@ function SearchAndFilter() {
           <label class="block text-xs font-medium text-gray-700 mb-1.5">
             Status
           </label>
-          <div class="relative">
+          <div>
             <select class="w-full h-10 pl-3 pr-10 rounded-lg bg-gray-50 border border-[#e5e7eb] text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none appearance-none cursor-pointer text-[#111418] ">
               <option value="">All Status</option>
               <option value="pending">Pending</option>
@@ -47,7 +47,7 @@ function SearchAndFilter() {
           <label class="block text-xs font-medium text-gray-700 mb-1.5">
             Priority
           </label>
-          <div class="relative">
+          <div>
             <select class="w-full h-10 pl-3 pr-10 rounded-lg bg-gray-50 border border-[#e5e7eb] text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none appearance-none cursor-pointer text-[#111418]">
               <option value="">All Priority</option>
               <option value="high">High</option>
@@ -64,7 +64,7 @@ function SearchAndFilter() {
           <label class="block text-xs font-medium text-gray-700 mb-1.5">
             Sort by
           </label>
-          <div class="relative">
+          <div>
             <select class="w-full h-10 pl-3 pr-10 rounded-lg bg-gray-50 border border-[#e5e7eb] text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none appearance-none cursor-pointer text-[#111418]">
               <option value="created_desc">Created (Newest)</option>
               <option value="created_asc">Created (Oldest)</option>

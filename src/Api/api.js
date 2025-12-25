@@ -11,3 +11,15 @@ export const fetchMe = async () => {
   });
   return data;
 };
+
+export const logoutApi = async () => {
+  const { data } = await api.post("/auth/logout", {
+    withCredentials: true,
+  });
+  return data;
+};
+
+export const signupApi = async (payload) => {
+  const { data } = await api.post("/auth/signup", payload);
+  return data;
+};

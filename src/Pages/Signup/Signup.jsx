@@ -2,19 +2,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { IoEyeOutline } from "react-icons/io5";
 import useHandleForm from "../../Hooks/useHandleForm";
+import { useSignup } from "../../Hooks/useSignup";
 
 function Signup() {
   const { formData, handleChangeFormData, showPassword, setShowPassword } =
     useHandleForm();
+  const { mutate: signup, isPending } = useSignup();
 
   function handleSignup(e) {
     e.preventDefault();
-    console.log(
-      "formSubmmted",
-      formData.email,
-      formData.password,
-      formData?.name
-    );
+    const payload = {
+      email: formData?.email,
+      password: formData?.password,
+      name: formData?.name,
+    };
+    signup(payload);
   }
 
   return (
