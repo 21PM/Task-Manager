@@ -12,7 +12,7 @@ export const useLogin = () => {
     mutationFn: loginApi,
 
     onSuccess: (data) => {
-      if (!data?.userDetails) return;
+      // if (!data?.userDetails) return;
       setAuth({
         user: data.userDetails,
         isAuthenticated: true,

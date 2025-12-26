@@ -10,7 +10,7 @@ import Header from "../../../Components/Header";
 import { useParams } from "react-router-dom";
 import useGetTaskById from "../../../Hooks/useGetTaskById";
 import { MdContentCopy } from "react-icons/md";
-import { formatToDateOnly } from "../../../Utils/helpers";
+import { formatToDateOnly, getColorByStatus } from "../../../Utils/helpers";
 
 function TaskDetails() {
   const navigate = useNavigate();
@@ -70,7 +70,9 @@ function TaskDetails() {
                   Task Details
                 </h1>
                 {/* <!-- Mobile Status Badge --> */}
-                <span className="sm:hidden bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded border border-yellow-200 ">
+                <span
+                  className={`sm:hidden bg-yellow-100 text-xs font-medium px-2.5 py-0.5 rounded border ${getColorByStatus()}`}
+                >
                   {status}
                 </span>
               </div>
@@ -132,8 +134,11 @@ function TaskDetails() {
                   Status
                 </p>
                 <div className="flex items-center">
-                  <span className="inline-flex items-center gap-1.5 bg-yellow-50 text-yellow-700 text-sm font-medium px-2.5 py-1 rounded-full border border-yellow-100 ">
-                    <span className="size-2 rounded-full bg-yellow-500 animate-pulse"></span>
+                  <span
+                    className={`inline-flex items-center gap-1.5 text-sm font-medium px-2.5 py-1 rounded-full border ${getColorByStatus(
+                      status
+                    )}`}
+                  >
                     {status}
                   </span>
                 </div>

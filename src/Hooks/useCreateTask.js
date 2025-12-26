@@ -12,7 +12,10 @@ const useCreateTask = (onClose) => {
       queryClient.invalidateQueries({ queryKey: ["myTasks"] });
     },
     onError: (error) => {
-      toast.error("Failed to create task");
+      toast.error(
+        error?.response?.data?.message ||
+          "Creating task failed. Please try again."
+      );
     },
   });
 };

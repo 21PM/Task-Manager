@@ -24,7 +24,7 @@ function Login() {
 
   function handleLogin(e) {
     e.preventDefault();
-    const { isSuccess, data, error } = login({
+    const { error } = login({
       email: formData.email,
       password: formData.password,
     });

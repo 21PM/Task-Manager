@@ -20,5 +20,10 @@ export const useLogout = () => {
       queryClient.removeQueries({ queryKey: ["auth-me"] });
       navigate("/login", { replace: true });
     },
+    onError: (error) => {
+      toast.error(
+        error?.response?.data?.message || "Logout failed. Please try again."
+      );
+    },
   });
 };

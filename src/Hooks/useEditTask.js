@@ -14,7 +14,10 @@ const useEditTask = (onClose) => {
     onError: (error) => {
       console.log("error from 14", error);
 
-      toast.error("Failed to edit task");
+      toast.error(
+        error?.response?.data?.message ||
+          "Editing task failed. Please try again."
+      );
     },
   });
 };

@@ -19,9 +19,7 @@ function Signup() {
       name: formData?.name,
     };
     const { error } = signup(payload);
-    if (signupError) {
-      return;
-    }
+
     setSignupError(
       error?.response?.data?.message || "Signup failed. Please try again."
     );

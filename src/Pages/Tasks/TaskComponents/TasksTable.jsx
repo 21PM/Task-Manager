@@ -120,7 +120,7 @@ function TasksTable() {
                             <span class="text-xs text-gray-500 mt-0.5">
                               Assigned to: {assignee}
                             </span>
-                            {user && (
+                            {user?.name && (
                               <span class="text-xs text-gray-500 mt-0.5">
                                 Created by: {user?.name}
                               </span>
