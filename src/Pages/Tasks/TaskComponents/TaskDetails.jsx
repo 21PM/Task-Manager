@@ -10,6 +10,7 @@ import Header from "../../../Components/Header";
 import { useParams } from "react-router-dom";
 import useGetTaskById from "../../../Hooks/useGetTaskById";
 import { MdContentCopy } from "react-icons/md";
+import { formatToDateOnly } from "../../../Utils/helpers";
 
 function TaskDetails() {
   const navigate = useNavigate();
@@ -75,12 +76,6 @@ function TaskDetails() {
               </div>
             </div>
             <div className="flex gap-3">
-              <button className="flex items-center justify-center gap-2 rounded-lg h-10 px-4 bg-white hover:bg-gray-50  border border-[#e5e7eb] text-[#111418]  text-sm font-bold shadow-sm transition-all">
-                <span className="material-symbols-outlined text-[18px]">
-                  <FiEdit />
-                </span>
-                <span className="hidden sm:inline">Edit Task</span>
-              </button>
               {/* <button className="flex items-center justify-center gap-2 rounded-lg h-10 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-bold shadow-sm transition-all">
               <span className="material-symbols-outlined text-[18px]">
                 check_circle
@@ -152,7 +147,7 @@ function TaskDetails() {
                   <span className="material-symbols-outlined text-[18px] text-[#617589]">
                     <MdCalendarMonth />
                   </span>
-                  {createdAt}
+                  {formatToDateOnly(createdAt)}
                 </div>
               </div>
               {/* <!-- Owner --> */}

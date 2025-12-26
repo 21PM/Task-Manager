@@ -34,8 +34,29 @@ export const editTaskApi = async ({ id, payload }) => {
   return data;
 };
 
-export const getMyTasksApi = async ({ page, limit }) => {
-  const { data } = await api.get(`/task/get?page=${page}&limit=${limit}`);
+// export const getMyTasksApi = async ({ page, limit }) => {
+//   const { data } = await api.get(`/task/get?page=${page}&limit=${limit}`);
+//   return data;
+// };
+
+export const getMyTasksApi = async ({
+  page,
+  limit,
+  taskStatus,
+  priority,
+  sort,
+  search,
+}) => {
+  const { data } = await api.get(`/task/get`, {
+    params: {
+      page,
+      limit,
+      ...(taskStatus && { status: taskStatus }),
+      ...(priority && { priority }),
+      ...(search && { search }),
+      ...(sort && { sort }), // asc | desc
+    },
+  });
   return data;
 };
 
