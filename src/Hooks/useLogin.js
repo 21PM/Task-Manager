@@ -19,13 +19,21 @@ export const useLogin = () => {
         isLoading: false,
       });
       toast.success("Logged in successfully!");
-      return data;
+      return {
+        isSuccess: true,
+        data: data,
+        error: null,
+      };
     },
     onError: (error) => {
       toast.error(
         error?.response?.data?.message || "Login failed. Please try again."
       );
-      return error;
+      return {
+        isSuccess: false,
+        data: null,
+        error: error,
+      };
     },
   });
 };

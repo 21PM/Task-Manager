@@ -24,7 +24,10 @@ function Login() {
 
   function handleLogin(e) {
     e.preventDefault();
-    const error = login({ email: formData.email, password: formData.password });
+    const { isSuccess, data, error } = login({
+      email: formData.email,
+      password: formData.password,
+    });
     setLoginError(
       error?.response?.data?.message || "Login failed. Please try again."
     );
@@ -133,7 +136,7 @@ function Login() {
             {/* <!-- Error Text Example (Hidden by default, showing static example as requested) --> */}
             {loginError && (
               <p className="text-red-500 text-sm font-normal leading-normal mt-1 flex items-center gap-1">
-                Invalid email address or password.
+                {loginError}
               </p>
             )}
           </div>
@@ -142,7 +145,7 @@ function Login() {
             className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary hover:bg-blue-600 text-white text-base font-bold leading-normal tracking-[0.015em] transition-colors shadow-sm mt-2"
             type="submit"
           >
-            <span className="truncate">Sign In</span>
+            <span className="truncate">Login In</span>
           </button>
         </form>
         {/* <!-- Footer --> */}

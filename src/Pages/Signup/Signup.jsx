@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoEyeOutline } from "react-icons/io5";
 import useHandleForm from "../../Hooks/useHandleForm";
 import { useSignup } from "../../Hooks/useSignup";
+import { FaRegEyeSlash } from "react-icons/fa6";
 
 function Signup() {
+  const [signupError, setSignupError] = useState(null);
   const { formData, handleChangeFormData, showPassword, setShowPassword } =
-    useHandleForm();
+    useHandleForm(setSignupError);
   const { mutate: signup, isPending } = useSignup();
 
   function handleSignup(e) {
@@ -16,7 +18,13 @@ function Signup() {
       password: formData?.password,
       name: formData?.name,
     };
-    signup(payload);
+    const { error } = signup(payload);
+    if (signupError) {
+      return;
+    }
+    setSignupError(
+      error?.response?.data?.message || "Signup failed. Please try again."
+    );
   }
 
   return (
@@ -92,7 +100,7 @@ function Signup() {
               <input
                 class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#dbe0e6]  bg-white focus:border-primary h-12 placeholder:text-[#617589] pl-4 pr-12 text-base font-normal leading-normal transition-all"
                 placeholder="Create a password"
-                type="password"
+                type={`${showPassword ? "text" : "password"}`}
                 id="password"
                 name="password"
                 value={formData?.password}
@@ -103,11 +111,20 @@ function Signup() {
                 type="button"
               >
                 <span class="material-symbols-outlined text-[20px]">
-                  <IoEyeOutline />
+                  {showPassword ? (
+                    <FaRegEyeSlash onClick={() => setShowPassword(false)} />
+                  ) : (
+                    <IoEyeOutline onClick={() => setShowPassword(true)} />
+                  )}
                 </span>
               </button>
             </div>
           </div>
+          {signupError && (
+            <p className="text-red-500 text-sm font-normal leading-normal mt-1 flex items-center gap-1">
+              {signupError}
+            </p>
+          )}
           {/* <!-- Password Rules --> */}
           {/* <div class="flex flex-col gap-2 p-3 bg-background-light rounded-lg border border-transparent">
             <p class="text-[#111418] text-xs font-semibold">
@@ -141,7 +158,10 @@ function Signup() {
             </div>
           </div> */}
           {/* <!-- Submit Button --> */}
-          <button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-600 transition-colors shadow-sm mt-1">
+          <button
+            class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-600 transition-colors shadow-sm mt-1 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            disabled={isPending || signupError}
+          >
             Sign Up
           </button>
           {/* <!-- Footer Link --> */}
