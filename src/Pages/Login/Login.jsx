@@ -9,6 +9,7 @@ import { useLogin } from "../../Hooks/useLogin";
 import { useAuth } from "../../context/AuthContext";
 function Login() {
   const { mutate: login, isPending, error } = useLogin();
+  const [loginError, setLoginError] = useState(null);
   const { auth } = useAuth();
   const navigate = useNavigate();
 
@@ -23,8 +24,10 @@ function Login() {
 
   function handleLogin(e) {
     e.preventDefault();
-    login({ email: formData.email, password: formData.password });
-    console.log("formSubmmted", formData.email, formData.password);
+    const error = login({ email: formData.email, password: formData.password });
+    setLoginError(
+      error?.response?.data?.message || "Login failed. Please try again."
+    );
   }
 
   return (
@@ -128,12 +131,11 @@ function Login() {
               </button>
             </div>
             {/* <!-- Error Text Example (Hidden by default, showing static example as requested) --> */}
-            <p className="text-red-500 text-sm font-normal leading-normal mt-1 flex items-center gap-1">
-              <span className="material-symbols-outlined text-[16px]">
-                error
-              </span>
-              Invalid email address or password.
-            </p>
+            {loginError && (
+              <p className="text-red-500 text-sm font-normal leading-normal mt-1 flex items-center gap-1">
+                Invalid email address or password.
+              </p>
+            )}
           </div>
           {/* <!-- Action Button --> */}
           <button
